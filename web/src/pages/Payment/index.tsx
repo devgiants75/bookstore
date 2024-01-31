@@ -1,16 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-import {Card, CardContent,TextField, CardActions, Button, Box, Typography} from '@mui/material';
+import {
+  Card,
+  CardContent,
+  TextField,
+  CardActions,
+  Button,
+  Box,
+  Typography,
+} from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import axios from 'axios';
-import { useUserStore } from 'src/stores';
-import { useCookies } from "react-cookie"; 
-import { useSelectProductStore } from 'src/stores';
+import { useCookies } from 'react-cookie';
+import { useUserStore, useSelectProductStore } from '../../stores';
 
 interface Props {
   productSeq: number;
@@ -20,13 +27,13 @@ interface Props {
 }
 
 export default function OrderPage() {
-
   const [cookies, setCookies] = useCookies();
 
   // const [orderNumber, setOrderNumber] = useState<string>('');
   // const [orderUserWhether, setOrderUserWhether] = useState<string>('');
   const [orderGuestPassword, setOrderGuestPassword] = useState<string>('');
-  const [orderGuestPasswordCheck, setOrderGuestPasswordCheck] = useState<string>('');
+  const [orderGuestPasswordCheck, setOrderGuestPasswordCheck] =
+    useState<string>('');
   // const [orderUserId, setOrderUserId] = useState<string>('');
   const [orderGiftCode, setOrderGiftCode] = useState<string>('');
   const [orderUserPhone, setOrderUserPhone] = useState<string>('');
@@ -37,7 +44,8 @@ export default function OrderPage() {
   const [orderRecieptName, setOrderRecieptName] = useState<string>('');
   const [orderRecieptPhone, setOrderRecieptPhone] = useState<string>('');
   const [orderShipAddress, setOrderShipAddress] = useState<string>('');
-  const [orderShipAddressDetail, setOrderShipAddressDetail] = useState<string>('');
+  const [orderShipAddressDetail, setOrderShipAddressDetail] =
+    useState<string>('');
   // const [orderTotalPrice, setOrderTotalPrice] = useState<number>(0);
   // const [orderStatus, setOrderStatus] = useState<Number>(0);
   // const [orderShipCompany, setOrderShipCompany] = useState<string>('');
@@ -59,25 +67,24 @@ export default function OrderPage() {
     setOrderGiftCode(event.target.value as string);
   };
 
-//   const getSelectProduct = () => {
-//     axios
-//         .get(
-//           "http://localhost:4080/api/pay/orderInsert"
-//         )
-//         .then((response) => {
-//             setSelectProduct(response.data.data);
-//         })
-//         .catch((error) => {});
-// };
+  //   const getSelectProduct = () => {
+  //     axios
+  //         .get(
+  //           "http://localhost:4080/api/pay/orderInsert"
+  //         )
+  //         .then((response) => {
+  //             setSelectProduct(response.data.data);
+  //         })
+  //         .catch((error) => {});
+  // };
 
   const paymentFinishHandler = async () => {
-
     console.log(selectProduct);
 
     const body = {
       orderUserWhether: user ? 1 : 0,
-      orderGuestPassword : user ? null : orderGuestPassword,
-      orderGuestPasswordCheck : user ? null : orderGuestPasswordCheck,
+      orderGuestPassword: user ? null : orderGuestPassword,
+      orderGuestPasswordCheck: user ? null : orderGuestPasswordCheck,
       orderUserId: user ? user.userId : null,
       orderGiftCode: user ? orderGiftCode : null,
       orderUserName,
@@ -93,21 +100,21 @@ export default function OrderPage() {
     };
 
     axios
-      .post("http://localhost:4080/api/pay/orderInsert", body
-      , { headers: { Authorization: `Bearer ${cookies.token}`}}
-      )
-      .then((response) => {
-        const data = response.data;
-        const result = data.result;
+      .post('http://localhost:4080/api/pay/orderInsert', body, {
+        headers: { Authorization: `Bearer ${cookies.token}` },
+      })
+      .then(response => {
+        const { data } = response;
+        const { result } = data;
         console.log(result);
         if (!result) alert(data.message);
       })
-      .catch((error) => {
-        console.log(error)
+      .catch(error => {
+        console.log(error);
         alert(error.message);
       });
-  }
-  
+  };
+
   useEffect(() => {
     if (user) {
       setOrderUserNameA(user.userName);
@@ -120,30 +127,26 @@ export default function OrderPage() {
 
       setOrderShipAddress(user.userAddress);
       setOrderShipAddressDetail(user.userAddressDetail);
-    } 
-  }, [])
+    }
+  }, []);
 
   return (
     <>
-      <Box
-        display={"flex"}
-        justifyContent={"center"}
-        style={{ paddingTop: "2vw" }}
-      >
+      <Box display="flex" justifyContent="center" style={{ paddingTop: '2vw' }}>
         <Box sx={{ m: 1 }}>
           <Box
-            display={"flex"}
-            justifyContent={"center"}
-            style={{ paddingTop: "2vw" }}
-            sx={{ width: "40vw", height: "20vw" }}
+            display="flex"
+            justifyContent="center"
+            style={{ paddingTop: '2vw' }}
+            sx={{ width: '40vw', height: '20vw' }}
           >
             <Card
-              sx={{ minWidth: 275, maxWidth: "40vw" }}
-              style={{ paddingTop: "2vw" }}
+              sx={{ minWidth: 275, maxWidth: '40vw' }}
+              style={{ paddingTop: '2vw' }}
             >
               <CardContent>
                 {cookies.token && (
-                  <Box display={"flex"} borderBottom={1} padding={1}>
+                  <Box display="flex" borderBottom={1} padding={1}>
                     <Typography padding={1}>성명</Typography>
                     <Typography padding={1}>{orderUserNameA} 님</Typography>
                   </Box>
@@ -154,7 +157,7 @@ export default function OrderPage() {
                   type="name"
                   variant="standard"
                   value={orderUserName}
-                  onChange={(e) => setOrderUserName(e.target.value)}
+                  onChange={e => setOrderUserName(e.target.value)}
                 />
                 <TextField
                   fullWidth
@@ -162,7 +165,7 @@ export default function OrderPage() {
                   type="phone"
                   variant="standard"
                   value={orderUserPhone}
-                  onChange={(e) => setOrderUserPhone(e.target.value)}
+                  onChange={e => setOrderUserPhone(e.target.value)}
                 />
                 <TextField
                   fullWidth
@@ -170,19 +173,19 @@ export default function OrderPage() {
                   type="email"
                   variant="standard"
                   value={orderUserEmail}
-                  onChange={(e) => setOrderUserEmail(e.target.value)}
+                  onChange={e => setOrderUserEmail(e.target.value)}
                 />
               </CardContent>
             </Card>
           </Box>
           <Box
-            display={"flex"}
-            justifyContent={"center"}
-            style={{ paddingTop: "2vw" }}
+            display="flex"
+            justifyContent="center"
+            style={{ paddingTop: '2vw' }}
           >
             <Card
-              sx={{ minWidth: 275, maxWidth: "40vw" }}
-              style={{ paddingTop: "2vw" }}
+              sx={{ minWidth: 275, maxWidth: '40vw' }}
+              style={{ paddingTop: '2vw' }}
             >
               <CardContent>
                 <Typography> 배송지 정보 </Typography>
@@ -192,7 +195,7 @@ export default function OrderPage() {
                   type="name"
                   variant="standard"
                   value={orderRecieptName}
-                  onChange={(e) => setOrderRecieptName(e.target.value)}
+                  onChange={e => setOrderRecieptName(e.target.value)}
                 />
                 <TextField
                   fullWidth
@@ -200,7 +203,7 @@ export default function OrderPage() {
                   type="phone"
                   variant="standard"
                   value={orderRecieptPhone}
-                  onChange={(e) => setOrderRecieptPhone(e.target.value)}
+                  onChange={e => setOrderRecieptPhone(e.target.value)}
                 />
                 <TextField
                   fullWidth
@@ -208,7 +211,7 @@ export default function OrderPage() {
                   type="address"
                   variant="standard"
                   value={orderShipAddress}
-                  onChange={(e) => setOrderShipAddress(e.target.value)}
+                  onChange={e => setOrderShipAddress(e.target.value)}
                 />
                 <TextField
                   fullWidth
@@ -216,11 +219,11 @@ export default function OrderPage() {
                   type="address"
                   variant="standard"
                   value={orderShipAddressDetail}
-                  onChange={(e) => setOrderShipAddressDetail(e.target.value)}
+                  onChange={e => setOrderShipAddressDetail(e.target.value)}
                 />
               </CardContent>
-              <CardContent sx={{ maxWidth: "40vw" }}>
-                <FormControl sx={{ m: 1, minWidth: "35vw", maxWidth: "40vw" }}>
+              <CardContent sx={{ maxWidth: '40vw' }}>
+                <FormControl sx={{ m: 1, minWidth: '35vw', maxWidth: '40vw' }}>
                   <InputLabel id="demo-simple-select-helper-label">
                     배송 메시지
                   </InputLabel>
@@ -241,10 +244,10 @@ export default function OrderPage() {
                   </Select>
                 </FormControl>
                 {!cookies.token ? (
-                  ""
+                  ''
                 ) : (
                   <FormControl
-                    sx={{ m: 1, minWidth: "35vw", maxWidth: "40vw" }}
+                    sx={{ m: 1, minWidth: '35vw', maxWidth: '40vw' }}
                   >
                     <InputLabel id="demo-simple-select-helper-label">
                       사은품 선택
@@ -271,21 +274,21 @@ export default function OrderPage() {
           </Box>
         </Box>
         <Box
-          display={"flex"}
-          justifyContent={"center"}
-          style={{ paddingTop: "2vw" }}
-          sx={{ width: "40vw", m: 1 }}
+          display="flex"
+          justifyContent="center"
+          style={{ paddingTop: '2vw' }}
+          sx={{ width: '40vw', m: 1 }}
         >
-          <Card sx={{ minWidth: "40vw" }} style={{ paddingTop: "2vw" }}>
+          <Card sx={{ minWidth: '40vw' }} style={{ paddingTop: '2vw' }}>
             <Typography padding={1}> 주문 내역</Typography>
             <CardContent>
-              {selectProduct.map((product) => (
+              {selectProduct.map(product => (
                 <Box>
-                  <Box sx={{ width: "20vw", height: "20vw" }}>
+                  <Box sx={{ width: '20vw', height: '20vw' }}>
                     <Box
                       component="img"
                       src={product.productImageUrl}
-                      sx={{ width: "20vw", height: "20vw" }}
+                      sx={{ width: '20vw', height: '20vw' }}
                     />
                   </Box>
                   <Box borderBottom={1} padding={1}>
@@ -299,13 +302,13 @@ export default function OrderPage() {
                       수량 : {product.cartProductAmount}개
                     </Typography>
                     <Typography padding={1}>
-                      결제 금액 :{" "}
+                      결제 금액 :{' '}
                       {product.cartProductAmount * product.productPrice}원
                     </Typography>
                   </Box>
                   <Box
-                    display={"flex"}
-                    justifyContent={"space-between"}
+                    display="flex"
+                    justifyContent="space-between"
                     borderBottom={1}
                     padding={1}
                   >
@@ -315,8 +318,8 @@ export default function OrderPage() {
                     </Typography>
                   </Box>
                   <Box
-                    display={"flex"}
-                    justifyContent={"space-between"}
+                    display="flex"
+                    justifyContent="space-between"
                     borderBottom={1}
                     padding={1}
                   >
@@ -328,8 +331,8 @@ export default function OrderPage() {
                     <Typography padding={1}>3,000원</Typography>
                   </Box>
                   <Box
-                    display={"flex"}
-                    justifyContent={"space-between"}
+                    display="flex"
+                    justifyContent="space-between"
                     borderBottom={1}
                     padding={1}
                   >
@@ -347,15 +350,15 @@ export default function OrderPage() {
       </Box>
       {!cookies.token ? (
         <Box
-          display={"flex"}
-          justifyContent={"center"}
-          style={{ paddingTop: "2vw" }}
+          display="flex"
+          justifyContent="center"
+          style={{ paddingTop: '2vw' }}
         >
-          <Card style={{ paddingTop: "2vw" }}>
+          <Card style={{ paddingTop: '2vw' }}>
             <Box>
               <Typography padding={1}>
-                {" "}
-                - 비회원 주문 비밀번호 설정 -{" "}
+                {' '}
+                - 비회원 주문 비밀번호 설정 -{' '}
               </Typography>
               <Typography padding={1}>
                 비밀번호는 “주문 확인”시 필수기재 사항으로 반드시 기억하셔야
@@ -371,31 +374,31 @@ export default function OrderPage() {
                   type="password"
                   variant="standard"
                   value={orderGuestPassword}
-                  onChange={(e) => setOrderGuestPassword(e.target.value)}
+                  onChange={e => setOrderGuestPassword(e.target.value)}
                 />
               </CardActions>
               <CardActions>
                 <Typography padding={1}>
-                  {" "}
-                  비회원 주문 비밀번호 확인 :{" "}
+                  {' '}
+                  비회원 주문 비밀번호 확인 :{' '}
                 </Typography>
                 <TextField
                   label="비회원 주문 비밀번호 확인"
                   type="password"
                   variant="standard"
                   value={orderGuestPasswordCheck}
-                  onChange={(e) => setOrderGuestPasswordCheck(e.target.value)}
+                  onChange={e => setOrderGuestPasswordCheck(e.target.value)}
                 />
               </CardActions>
             </Box>
           </Card>
         </Box>
       ) : (
-        " "
+        ' '
       )}
 
-      <Box display={"flex"} justifyContent={"center"}>
-        <CardActions sx={{ minWidth: "60vw" }} style={{ paddingTop: "2vw" }}>
+      <Box display="flex" justifyContent="center">
+        <CardActions sx={{ minWidth: '60vw' }} style={{ paddingTop: '2vw' }}>
           <Button
             fullWidth
             onClick={() => {

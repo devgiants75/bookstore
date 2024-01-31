@@ -1,6 +1,5 @@
-import React from "react";
-import { FOOTER_LIST } from "../../constants/layout-footer";
-
+import React from 'react';
+import { FOOTER_LIST } from '../../constants/layout-footer';
 
 export default function index() {
   return (
@@ -9,18 +8,21 @@ export default function index() {
         <div className="f_menu">
           <div className="inner">
             <ul>
-                {FOOTER_LIST.map((item) => (
+              {FOOTER_LIST.map(item => (
                 <li>
-                <a href="#" target="_blank">
-                  {item}
-                </a>
-              </li>
+                  <a href="#" target="_blank">
+                    {item}
+                  </a>
+                </li>
               ))}
-              
             </ul>
             <div className="sns_wrap">
               <span className="instagram">
-                <a href="https://www.instagram.com/" target="_blank"></a>
+                <a
+                  href="https://www.instagram.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                />
               </span>
             </div>
           </div>

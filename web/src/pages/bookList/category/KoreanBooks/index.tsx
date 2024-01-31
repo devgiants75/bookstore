@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import './style.css';
 import axios from 'axios';
-import { MENU_LIST } from 'src/constants';
+import { MENU_LIST } from '../../../../constants';
 
 function BookList() {
   const [bookList, setBookList] = useState<any[]>([]);
@@ -35,7 +35,9 @@ function BookList() {
       .then(response => {
         setBookList(response.data.data);
       })
-      .catch(error => {});
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -82,7 +84,11 @@ function BookList() {
               <div className="list-img">
                 <div className="imgtle">
                   <Link to={`/DtlPage/${item.productSeq}`}>
-                    <img className="book-img" src={item.productImageUrl} />
+                    <img
+                      className="book-img"
+                      src={item.productImageUrl}
+                      alt="book-img"
+                    />
                   </Link>
                 </div>
                 <div className="book-name">{item.productTitle}</div>

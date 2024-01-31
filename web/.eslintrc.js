@@ -72,6 +72,9 @@ module.exports = {
     'jsx-a11y/no-noninteractive-element-interactions': 0,
     'react/react-in-jsx-scope': 'off',
     'global-require': 0,
+    'import/prefer-default-export': 0,
+    // 추후 삭제
+    'jsx-a11y/anchor-isvalid': 0,
   },
   settings: {
     'import/resolver': {
