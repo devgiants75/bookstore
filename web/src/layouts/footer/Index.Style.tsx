@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { logo } from '../../styles/variable';
 
 export const Footer = styled.footer`
   width: 100%;
@@ -46,9 +47,8 @@ export const Inner = styled.div`
 `;
 
 export const Logo = styled.h1`
-  font-family: 'TAEBAEKmilkyway', serif;
+  ${logo};
   font-size: 30rem;
-  font-weight: 600;
   color: var(--gray130);
 `;
 
@@ -70,7 +70,7 @@ export const Address = styled.div`
     position: absolute;
     width: 1rem;
     height: 10rem;
-    color: var(--gray40);
+    background-color: var(--gray40);
     top: 50%;
     left: -12rem;
     transform: translateY(-50%);

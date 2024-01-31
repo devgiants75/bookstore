@@ -121,6 +121,7 @@ const GlobalStyled = createGlobalStyle`
     text-decoration: none;
     color: inherit;
     font-family: inherit;
+    display: inline-block;
   }
 
   button {
