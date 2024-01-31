@@ -57,10 +57,10 @@ module.exports = {
     'react/jsx-one-expression-per-line': 0,
     'no-nested-ternary': 0,
     // [error] Curly braces are unnecessary here
-    'react/jsx-curly-brace-presence': [
-      'warn',
-      { props: 'always', children: 'always' },
-    ],
+    // 'react/jsx-curly-brace-presence': [
+    //   'warn',
+    //   { props: 'always', children: 'always' },
+    // ],
     // props spreading 허용하지 않는 경고 표시
     'react/jsx-props-no-spreading': [1, { custom: 'ignore' }],
     'linebreak-style': 0,
@@ -72,6 +72,9 @@ module.exports = {
     'jsx-a11y/no-noninteractive-element-interactions': 0,
     'react/react-in-jsx-scope': 'off',
     'global-require': 0,
+    'import/prefer-default-export': 0,
+    // 추후 삭제
+    'jsx-a11y/anchor-is-valid': 0,
   },
   settings: {
     'import/resolver': {
