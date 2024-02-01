@@ -1,9 +1,9 @@
 import { css } from 'styled-components';
 
 interface FlexType {
-  direction: string;
-  justify: string;
-  align: string;
+  direction?: string;
+  justify?: string;
+  align?: string;
 }
 
 export const flex = (obj: FlexType) => `

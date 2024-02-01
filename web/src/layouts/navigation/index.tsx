@@ -11,15 +11,15 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Popper from '@mui/material/Popper';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import * as S from './Index.Style';
 
-import axios from 'axios';
-import { Button } from '@mui/material';
-import MenuComponent from './components/MenuItem';
+import Gnb from './components/Gnb';
 import PoperMenuItem from './components/PoperMenuItem';
 import { AGE_LIST, CATEGORY_LIST } from '../../constants/navigation';
 
 export default function Navigation() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [menuToggle, setMenuToggle] = useState<boolean>(false);
 
   const [productTitle, setProductTitle] = useState<string>('');
 
@@ -38,68 +38,95 @@ export default function Navigation() {
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
+    setMenuToggle(!menuToggle);
   };
+
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popper' : undefined;
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: '#F0A500' }}>
-        <Toolbar style={{ paddingRight: '10vw', paddingLeft: '10vw' }}>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            type="button"
+    <>
+      <S.Nav>
+        <S.Logo>
+          <Link to="/">몽몽책방</Link>
+        </S.Logo>
+        <S.Gnb>
+          {CATEGORY_LIST.map(category => (
+            <Gnb
+              title={category.title}
+              url={category.url}
+              subTitles={category.subTitles}
+            />
+          ))}
+        </S.Gnb>
+        <S.GnbFullMenu>
+          <S.GnbToggle
             onClick={handleClick}
+            className={menuToggle ? 'active' : ''}
           >
-            <MenuIcon />
-          </IconButton>
-          <Box display="flex" sx={{ flexGrow: 1 }} fontFamily="logoFont">
-            {CATEGORY_LIST.map(category => (
-              <MenuComponent
-                title={category.title}
-                url={category.url}
-                subTitles={category.subTitles}
-              />
-            ))}
-            <Divider
-              style={{ borderColor: '#ffffff' }}
-              orientation="vertical"
-              flexItem
-            />
-            {AGE_LIST.map(age => (
-              <MenuComponent
-                title={age.title}
-                // <Link to={subTitles.url}>{subTitles.subTitle}</Link>
-                subTitles={age.subTitles}
-                url={age.url}
-              />
-            ))}
-          </Box>
-          <Popper
-            id={id}
-            open={open}
-            placement="bottom-start"
-            anchorEl={anchorEl}
-            sx={{ zIndex: 999 }}
-          >
-            <PoperMenuItem setAnchorEl={setAnchorEl} />
-          </Popper>
-          <Search>
-            <IconButton onClick={SearchAdd}>
-              <SearchIcon />
-            </IconButton>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-              onChange={e => setProductTitle(e.target.value)}
-              onKeyPress={event => handleKeyPress(event)}
-            />
-          </Search>
-        </Toolbar>
-      </AppBar>
-    </Box>
+            <span>메뉴열기/닫기</span>
+          </S.GnbToggle>
+        </S.GnbFullMenu>
+      </S.Nav>
+      {/* ------------------------------------------------------------------------ */}
+      {/* <Box sx={{ flexGrow: 1 }}> */}
+      {/*  <AppBar position="static" sx={{ backgroundColor: '#F0A500' }}> */}
+      {/*    <Toolbar style={{ paddingRight: '10vw', paddingLeft: '10vw' }}> */}
+      {/*      <IconButton */}
+      {/*        size="large" */}
+      {/*        edge="start" */}
+      {/*        color="inherit" */}
+      {/*        aria-label="menu" */}
+      {/*        type="button" */}
+      {/*        onClick={handleClick} */}
+      {/*      > */}
+      {/*        <MenuIcon /> */}
+      {/*      </IconButton> */}
+      {/*      <Box display="flex" sx={{ flexGrow: 1 }} fontFamily="logoFont"> */}
+      {/*        {CATEGORY_LIST.map(category => ( */}
+      {/*          <Gnb */}
+      {/*            title={category.title} */}
+      {/*            url={category.url} */}
+      {/*            subTitles={category.subTitles} */}
+      {/*          /> */}
+      {/*        ))} */}
+      {/*        <Divider */}
+      {/*          style={{ borderColor: '#ffffff' }} */}
+      {/*          orientation="vertical" */}
+      {/*          flexItem */}
+      {/*        /> */}
+      {/*        {AGE_LIST.map(age => ( */}
+      {/*          <Gnb */}
+      {/*            title={age.title} */}
+      {/*            // <Link to={subTitles.url}>{subTitles.subTitle}</Link> */}
+      {/*            subTitles={age.subTitles} */}
+      {/*            url={age.url} */}
+      {/*          /> */}
+      {/*        ))} */}
+      {/*      </Box> */}
+      {/*      <Popper */}
+      {/*        id={id} */}
+      {/*        open={open} */}
+      {/*        placement="bottom-start" */}
+      {/*        anchorEl={anchorEl} */}
+      {/*        sx={{ zIndex: 999 }} */}
+      {/*      > */}
+      {/*        <PoperMenuItem setAnchorEl={setAnchorEl} /> */}
+      {/*      </Popper> */}
+      {/*      <Search> */}
+      {/*        <IconButton onClick={SearchAdd}> */}
+      {/*          <SearchIcon /> */}
+      {/*        </IconButton> */}
+      {/*        <StyledInputBase */}
+      {/*          placeholder="Search…" */}
+      {/*          inputProps={{ 'aria-label': 'search' }} */}
+      {/*          onChange={e => setProductTitle(e.target.value)} */}
+      {/*          onKeyPress={event => handleKeyPress(event)} */}
+      {/*        /> */}
+      {/*      </Search> */}
+      {/*    </Toolbar> */}
+      {/*  </AppBar> */}
+      {/* </Box> */}
+    </>
   );
 }
 const Search = styled('div')(({ theme }) => ({

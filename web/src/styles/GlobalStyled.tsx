@@ -100,40 +100,41 @@ const GlobalStyled = createGlobalStyle`
     --coral120: #b81d1d;
   }
 
-  * {
-    box-sizing: border-box;
-  }
-
-  html {
-    font-size: 6.25%;
-  }
-
-  body {
-    font-size: 16rem;
-    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, Roboto, "Noto Sans KR", "Segoe UI", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-    line-height: 1.5;
-    word-break: keep-all;
-    word-wrap: break-word;
-    overflow-x: hidden;
-  }
-
-  a {
-    text-decoration: none;
-    color: inherit;
-    font-family: inherit;
-    display: inline-block;
-  }
-
-  button {
-    background: inherit;
-    border: none;
-    box-shadow: none;
-    border-radius: 0;
-    padding: 0;
-    overflow: visible;
-    cursor: pointer;
-    font-family: inherit;
-  }
+  //
+  //* {
+  //  box-sizing: border-box;
+  //}
+  //
+  //html {
+  //  font-size: 6.25%;
+  //}
+  //
+  //body {
+  //  font-size: 16rem;
+  //  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, Roboto, "Noto Sans KR", "Segoe UI", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  //  line-height: 1.5;
+  //  word-break: keep-all;
+  //  word-wrap: break-word;
+  //  overflow-x: hidden;
+  //}
+  //
+  //a {
+  //  text-decoration: none;
+  //  color: inherit;
+  //  font-family: inherit;
+  //  display: inline-block;
+  //}
+  //
+  //button {
+  //  background: inherit;
+  //  border: none;
+  //  box-shadow: none;
+  //  border-radius: 0;
+  //  padding: 0;
+  //  overflow: visible;
+  //  cursor: pointer;
+  //  font-family: inherit;
+  //}
 `;
 
 export default GlobalStyled;

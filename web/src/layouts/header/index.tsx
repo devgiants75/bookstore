@@ -2,14 +2,12 @@ import { Box, Divider, Drawer, IconButton, Typography } from '@mui/material';
 import { useState, KeyboardEvent, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { grey } from '@mui/material/colors';
-import { create } from 'zustand';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import PersonIcon from '@mui/icons-material/Person';
 import TagFacesIcon from '@mui/icons-material/TagFaces';
 import { useCookies } from 'react-cookie';
-import axios from 'axios';
 import { useUserStore } from '../../stores';
 import logo from './logo.png';
+import * as S from './Index.Style';
 
 interface Prop {
   num: number;
@@ -19,21 +17,11 @@ interface Prop {
 interface UserStore {
   user: any;
   setUser: (user: any) => void;
-  remobeUser: () => void;
+  removeUser: () => void;
 }
 
-const useStore = create<UserStore>(set => ({
-  user: null,
-  setUser: (user: any) => {
-    set(state => ({ ...state, user }));
-  },
-  remobeUser: () => {
-    set(state => ({ ...state, user: null }));
-  },
-}));
-
 export default function Header() {
-  const [login, setLogin] = useState<boolean>(true);
+  // const [login, setLogin] = useState<boolean>(true);
 
   const [state, setState] = useState({
     top: false,
@@ -55,13 +43,13 @@ export default function Header() {
       setState({ ...state, right: open });
     };
 
-  const { user, remobeUser } = useUserStore();
+  const { user, removeUser } = useUserStore();
 
   const [cookies, setCookies] = useCookies();
 
   const logOutHandler = () => {
     setCookies('token', '', { expires: new Date() });
-    localStorage.remobeUser();
+    localStorage.removeUser();
   };
 
   // if(!cookies.token == null){
@@ -173,8 +161,7 @@ export default function Header() {
         alignItems="center"
       >
         {cookies.token ? (
-          // eslint-disable-next-line jsx-a11y/anchor-is-valid
-          <Link to="">
+          <Link to="#">
             <Typography
               variant="subtitle1"
               m={2}
