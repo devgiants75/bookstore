@@ -69,7 +69,6 @@ function App() {
   return (
     <>
       <Header />
-      <Navigation />
 
       <Routes>
         {/* // component : Main 화면 */}
@@ -116,4 +115,5 @@ function App() {
     </>
   );
 }
+
 export default App;

@@ -57,6 +57,24 @@ export const theme = createTheme({
         },
       },
     },
+    MuiPopover: {
+      styleOverrides: {
+        paper: {
+          borderRadius: '16rem',
+          boxShadow: 'none',
+          background: 'none',
+          color: 'inherit',
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          width: '100%',
+          flex: 1,
+        },
+      },
+    },
   },
 });
 

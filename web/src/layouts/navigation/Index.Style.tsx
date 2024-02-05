@@ -1,4 +1,6 @@
 import { styled } from 'styled-components';
+import Paper from '@mui/material/Paper';
+import m from '@emotion/styled';
 import { container, logo } from '../../styles/variable';
 
 export const Nav = styled.nav`
@@ -6,6 +8,7 @@ export const Nav = styled.nav`
   display: flex;
   align-items: center;
   height: 60rem;
+  background-color: #fff;
 `;
 
 export const Logo = styled.h1`
@@ -28,6 +31,8 @@ export const GnbFullMenu = styled.div`
   flex: 0 0 20%;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 16rem;
 `;
 
 export const GnbToggle = styled.button`
@@ -84,4 +89,60 @@ export const Gnb = styled.div`
   align-items: center;
   justify-content: center;
   margin: 0 auto;
+`;
+
+export const Popover = m(Paper)`
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: 24rem 8rem;
+  background-color: #fff;
+  border-radius: 16rem;
+  box-shadow:
+    rgba(20, 20, 20, 0.12) 4px 12px 24px 0px,
+    rgba(20, 20, 20, 0.08) 0px 1px 4px 0px;
+`;
+
+export const SearchIcon = styled.div`
+  width: 24rem;
+  height: 24rem;
+`;
+
+export const Search = styled.div`
+  display: none;
+  width: 100%;
+  position: absolute;
+  top: 100rem;
+  left: 0;
+  right: 0;
+  padding: 16rem 24rem;
+  box-shadow: 0 16px 16px rgba(55, 63, 87, 0.1);
+  background-color: #fff;
+
+  &.active {
+    display: block;
+  }
+`;
+
+export const SearchInner = styled.div`
+  ${container};
+  display: flex;
+  align-items: center;
+
+  & input {
+    font-size: 24rem;
+    padding: 14rem 0 14rem 14rem;
+    width: 100%;
+    color: var(--gray120);
+  }
+`;
+
+export const SearchCloseIcon = styled.div`
+  width: 40rem;
+  height: 40rem;
+  border: 1px solid var(--gray60);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8rem;
+  cursor: pointer;
 `;

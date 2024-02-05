@@ -11,6 +11,7 @@ export const GnbList = m(Button)`
   padding: 0 12rem;
   transition: background-color 0.2s ease 0s;
   color: var(--gray120);
+  font-weight: 600;
 
   & a {
     color: var(--gray120);
@@ -31,6 +32,7 @@ export const LnbList = styled.span`
   padding: 0 8rem;
   color: var(--gray120);
   transition: background-color 0.2s ease 0s;
+  font-weight: 500;
 
   &:hover {
     background-color: var(--gray20);

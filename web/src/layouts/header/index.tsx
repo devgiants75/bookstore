@@ -8,6 +8,7 @@ import { useCookies } from 'react-cookie';
 import { useUserStore } from '../../stores';
 import logo from './logo.png';
 import * as S from './Index.Style';
+import Navigation from '../navigation';
 
 interface Prop {
   num: number;
@@ -130,66 +131,15 @@ export default function Header() {
   // }
 
   return (
-    <Box
-      display="flex"
-      justifyContent="space-between"
-      ml="10vw"
-      mr="10vw"
-      p={2}
-    >
-      <Box flex={1}>
-        <Box component="img" src={logo} sx={{ height: '3.3em' }} />
-      </Box>
-      <Box
-        flex={1}
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        textAlign="center"
-      >
-        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-        <Link to="">
-          <Typography variant="h3" fontFamily="logoFont">
-            몽몽 책방
-          </Typography>
-        </Link>
-      </Box>
-      <Box
-        flex={1}
-        display="flex"
-        justifyContent="flex-end"
-        alignItems="center"
-      >
+    <S.Header>
+      <S.HeaderTop>
         {cookies.token ? (
-          <Link to="#">
-            <Typography
-              variant="subtitle1"
-              m={2}
-              onClick={() => logOutHandler()}
-              fontFamily="logoFont"
-            >
-              로그아웃
-            </Typography>
-          </Link>
+          <Link to="#">로그아웃</Link>
         ) : (
-          <Link to="/signIn">
-            <Typography variant="subtitle1" m={2} fontFamily="logoFont">
-              로그인
-            </Typography>
-          </Link>
+          <Link to="/signIn">로그인</Link>
         )}
-
-        <Divider
-          orientation="vertical"
-          variant="middle"
-          flexItem
-          sx={{ borderColor: '#000000' }}
-        />
-        <Link to="/signup">
-          <Typography ml={2} mr={2} component="span" fontFamily="logoFont">
-            회원가입
-          </Typography>
-        </Link>
+        <hr />
+        <Link to="/signup">회원가입</Link>
         {cookies.token && (
           <>
             <Divider
@@ -216,7 +166,8 @@ export default function Header() {
             </Drawer>
           </>
         )}
-      </Box>
-    </Box>
+      </S.HeaderTop>
+      <Navigation />
+    </S.Header>
   );
 }

@@ -1,18 +1,32 @@
 import { styled } from 'styled-components';
-// import styled from '@emotion/styled';
-import Typography from '@mui/material/Typography';
 import { container, logo } from '../../styles/variable';
 
-// export const Logo = styled.div``;
-// export const Inner = styled.div``;
-
-// export const Typo = styled(Typography)`
-//   font-size: 16rem;
-// `;
-
 export const Header = styled.header`
-  ${container};
   z-index: 10;
+  position: relative;
+`;
+
+export const HeaderTop = styled.div`
+  ${container};
+  height: 40rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16rem;
+
+  & a {
+    font-size: 14rem;
+    color: var(--gray110);
+    font-weight: 500;
+  }
+
+  & hr {
+    display: block;
+    width: 1px;
+    height: 12px;
+    border: 0;
+    background: #d7dce5;
+  }
 `;
 
 export const Logo = styled.h1`
