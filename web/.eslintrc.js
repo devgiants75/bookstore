@@ -72,6 +72,13 @@ module.exports = {
     'jsx-a11y/no-noninteractive-element-interactions': 0,
     'react/react-in-jsx-scope': 'off',
     'global-require': 0,
+    // input label 연결 에러
+    "jsx-a11y/label-has-associated-control": [
+      2,
+      {
+        "labelAttributes": ["htmlFor"]
+      }
+    ],
     'import/prefer-default-export': 0,
     // 추후 삭제
     'jsx-a11y/anchor-is-valid': 0,

@@ -25,7 +25,7 @@ export const List = styled.li`
   & a {
     display: inline-block;
     color: var(--gray110);
-    font-size: 16rem;
+    font-size: 14rem;
     position: relative;
   }
 
