@@ -8,8 +8,8 @@ export default function index() {
     <S.Footer>
       <S.Ul>
         {FOOTER_LIST.map(item => (
-          <S.List>
-            <Link to="#">{item}</Link>
+          <S.List key={item.id}>
+            <Link to="#">{item.name}</Link>
           </S.List>
         ))}
       </S.Ul>
