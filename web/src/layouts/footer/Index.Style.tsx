@@ -48,7 +48,7 @@ export const Inner = styled.div`
 
 export const Logo = styled.h1`
   ${logo};
-  font-size: 30rem;
+  font-size: 26rem;
   color: var(--gray130);
 `;
 

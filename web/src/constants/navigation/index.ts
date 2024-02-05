@@ -137,6 +137,66 @@ export const CATEGORY_LIST = [
       },
     ],
   },
+  {
+    title: '0~3세',
+    url: '/bookList/1/0',
+    subTitles: [
+      {
+        subTitle: '그림책',
+        url: '/bookList/1/1',
+      },
+      {
+        subTitle: '동화책',
+        url: '/bookList/1/2',
+      },
+      {
+        subTitle: '브로마이드',
+        url: '/bookList/1/3',
+      },
+      {
+        subTitle: '학습',
+        url: '/bookList/1/4',
+      },
+      {
+        subTitle: '토이사운드북',
+        url: '/bookList/1/5',
+      },
+      {
+        subTitle: '해외도서',
+        url: '/bookList/1/6',
+      },
+    ],
+  },
+  {
+    title: '4~7세',
+    url: '/bookList/2/0',
+    subTitles: [
+      {
+        subTitle: '명작/전래/창작 동화',
+        url: '/bookList/2/1',
+      },
+      {
+        subTitle: '학습',
+        url: '/bookList/2/2',
+      },
+      {
+        subTitle: '미술',
+        url: '/bookList/2/3',
+      },
+      {
+        subTitle: '인물',
+        url: '/bookList/2/4',
+      },
+      {
+        subTitle: '놀이북',
+        url: '/bookList/2/5',
+      },
+      {
+        subTitle: '해외도서',
+        url: '/bookList/2/6',
+      },
+    ],
+  },
 ];
 
 export const AGE_LIST = [
