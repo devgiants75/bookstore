@@ -48,6 +48,7 @@ export const Forgotten = styled.div`
   display: flex;
   align-items: center;
   gap: 8rem;
+  justify-content: center;
 
   & a {
     font-size: 13rem;

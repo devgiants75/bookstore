@@ -1,7 +1,4 @@
-import { DefaultTheme } from 'styled-components';
-import { Button, createTheme } from '@mui/material';
-import reset from 'styled-reset';
-import { styled } from '@mui/material/styles';
+import { createTheme } from '@mui/material';
 
 export const theme = createTheme({
   typography: {
@@ -67,11 +64,38 @@ export const theme = createTheme({
         },
       },
     },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          '& +.MuiInputBase-root': {
+            marginTop: 0,
+          },
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          transform: 'none',
+          fontSize: '14rem',
+        },
+      },
+    },
     MuiInputBase: {
       styleOverrides: {
         root: {
           width: '100%',
           flex: 1,
+          boxSizing: 'border-box',
+          '::after': {
+            display: 'none',
+          },
+          '::before': {
+            display: 'none',
+          },
+        },
+        input: {
+          boxSizing: 'border-box',
         },
       },
     },
@@ -131,39 +155,3 @@ export const color = {
   coral110: '#d63131',
   coral120: '#b81d1d',
 };
-
-export const MuiButton = styled(Button)({
-  boxShadow: 'none',
-  textTransform: 'none',
-  fontSize: 16,
-  padding: '6px 12px',
-  border: '1px solid',
-  lineHeight: 1.5,
-  backgroundColor: '#0063cc',
-  borderColor: '#0063cc',
-  fontFamily: [
-    '-apple-system',
-    'BlinkMacSystemFont',
-    '"Segoe UI"',
-    'Roboto',
-    '"Helvetica Neue"',
-    'Arial',
-    'sans-serif',
-    '"Apple Color Emoji"',
-    '"Segoe UI Emoji"',
-    '"Segoe UI Symbol"',
-  ].join(','),
-  '&:hover': {
-    backgroundColor: '#0069d9',
-    borderColor: '#0062cc',
-    boxShadow: 'none',
-  },
-  '&:active': {
-    boxShadow: 'none',
-    backgroundColor: '#0062cc',
-    borderColor: '#005cbf',
-  },
-  '&:focus': {
-    boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
-  },
-});

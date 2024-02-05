@@ -11,6 +11,7 @@ interface IProp {
 const StyledInput = styled(TextField)`
   & label {
     position: static;
+    font-size: 14rem;
   }
 
   & label[data-shrink='true'] {
