@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Cookies, useCookies } from 'react-cookie';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as S from './Index.Style';
 
 import { useUserStore } from '../../stores';
@@ -11,7 +11,6 @@ export default function SingIn() {
   const [userId, setUserId] = useState<string>('');
   const [userPassword, setUserPassword] = useState<string>('');
   const [cookies, setCookies] = useCookies();
-  const navigator = useNavigate();
   const { user, setUser } = useUserStore();
 
   const signInHandeler = () => {
