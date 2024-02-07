@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-
 import { Img1, Img2, Img3, Img4 } from "../../../assets/images";
 import { Box, Grid } from "@mui/material";
 import MainSideCarousel from "../MainSideCarousel";
 import MainCarousel from "../MainCarousel";
 import Ranking from "../Ranking";
-
 
 export default function MainArticle() {
   // state : 상태 => 해당 컴포넌트가 리랜더링 되는 기준
