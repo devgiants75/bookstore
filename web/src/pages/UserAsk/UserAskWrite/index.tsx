@@ -1,19 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 
-import {Card, CardContent,TextField, CardActions, Button, Box, Typography, ButtonGroup } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  TextField,
+  CardActions,
+  Button,
+  Box,
+  Typography,
+  ButtonGroup,
+} from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie"; 
-import axios from "axios";
+import { useCookies } from 'react-cookie';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { useUserStore } from 'src/stores';
+import { useUserStore } from '../../../stores';
 
 export default function UserAskWrite() {
-
   const [cookies, setCookies] = useCookies();
 
   const [askWriter, setAskWriter] = useState<string>('');
@@ -33,89 +40,93 @@ export default function UserAskWrite() {
 
   const askWriteHandler = () => {
     const data = {
-      askWriter : user.userId,
+      askWriter: user.userId,
       askSort,
       askTitle,
       askContent,
     };
     axios
-    .post("http://localhost:4080/api/ask/askWrite", data, {
-      headers: { Authorization: `Bearer ${cookies.token}`}})
-    .then((response) => {
-      const data = response.data;
-      const result = data.result;
-      console.log(result);
-      alert("1 : 1 문의 접수를 정상적으로 완료하였습니다.");
-      if (!result) alert(data.message)
-    })
-    .catch((error) => {});
+      .post('http://localhost:4080/api/ask/askWrite', data, {
+        headers: { Authorization: `Bearer ${cookies.token}` },
+      })
+      .then(response => {
+        const { data } = response;
+        const { result } = data;
+        console.log(result);
+        alert('1 : 1 문의 접수를 정상적으로 완료하였습니다.');
+        if (!result) alert(data.message);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:4080/api/user/`, {
-      headers: {
-        Authorization: `Bearer ${cookies.token}`,
-      },
-    })
-    .then((response) => {
-      const data = response.data;
-      const result = data.result;
-      console.log(result);
-      if (!result) alert(data.message)
-      else {
-        setUserName(data.data.userName);
-        setUserEmail(data.data.userEmail);
-        setUserPhone(data.data.userPhone);
-      }
-    })
+    axios
+      .get(`http://localhost:4080/api/user/`, {
+        headers: {
+          Authorization: `Bearer ${cookies.token}`,
+        },
+      })
+      .then(response => {
+        const { data } = response;
+        const { result } = data;
+        console.log(result);
+        if (!result) alert(data.message);
+        else {
+          setUserName(data.data.userName);
+          setUserEmail(data.data.userEmail);
+          setUserPhone(data.data.userPhone);
+        }
+      });
   }, []);
 
   return (
     <>
-      <Box style={{ paddingTop: "2vw", paddingBottom: "2vw" }}>
-        <Typography align="center" fontSize={"30px"}>
+      <Box style={{ paddingTop: '2vw', paddingBottom: '2vw' }}>
+        <Typography align="center" fontSize="30px">
           마이페이지
         </Typography>
-        <Typography align="center" fontSize={"25px"}>
+        <Typography align="center" fontSize="25px">
           1 : 1 문의
         </Typography>
       </Box>
       <Box
-        display={"flex"}
-        justifyContent={"center"}
+        display="flex"
+        justifyContent="center"
         style={{
-          padding: "1vw",
-          margin: "auto",
+          padding: '1vw',
+          margin: 'auto',
         }}
-        sx={{ maxWidth: "60vw" }}
+        sx={{ maxWidth: '60vw' }}
         borderBottom={1}
         borderTop={1}
       >
-        <Card sx={{ m: 1, minWidth: "55vw" }}>
-          <Box display={"flex"} justifyContent={"center"}>
+        <Card sx={{ m: 1, minWidth: '55vw' }}>
+          <Box display="flex" justifyContent="center">
             <Card>
               <CardContent>
                 <Box
-                  display={"flex"}
+                  display="flex"
                   borderBottom={1}
                   padding={1}
                   margin={1}
-                  sx={{ minWidth: "55vw" }}
+                  sx={{ minWidth: '55vw' }}
                 >
                   <Box
                     padding={1}
-                    sx={{ minWidth: "8vw" }}
-                    justifyContent={"center"}
-                    alignContent={"center"}
+                    sx={{ minWidth: '8vw' }}
+                    justifyContent="center"
+                    alignContent="center"
                   >
                     문의 유형
                   </Box>
                   <Box
                     sx={{ flexGrow: 1 }}
-                    justifyContent={"center"}
-                    alignContent={"center"}
+                    justifyContent="center"
+                    alignContent="center"
                   >
-                    <FormControl sx={{ minWidth: "11vw", maxWidth: "15vw" }}>
+                    <FormControl sx={{ minWidth: '11vw', maxWidth: '15vw' }}>
                       <InputLabel id="demo-simple-select-helper-label">
                         문의유형 선택
                       </InputLabel>
@@ -129,11 +140,11 @@ export default function UserAskWrite() {
                         <MenuItem>
                           <em>문의 유형을 선택해주세요</em>
                         </MenuItem>
-                        <MenuItem value={"제품 문의"}>제품 문의</MenuItem>
-                        <MenuItem value={"주문 / 결제 문의"}>
+                        <MenuItem value="제품 문의">제품 문의</MenuItem>
+                        <MenuItem value="주문 / 결제 문의">
                           주문 / 결제 문의
                         </MenuItem>
-                        <MenuItem value={"취소 / 환불 문의"}>
+                        <MenuItem value="취소 / 환불 문의">
                           취소 / 환불 문의
                         </MenuItem>
                       </Select>
@@ -141,13 +152,13 @@ export default function UserAskWrite() {
                   </Box>
                 </Box>
                 <Box
-                  display={"flex"}
+                  display="flex"
                   borderBottom={1}
                   padding={1}
                   margin={1}
-                  sx={{ minWidth: "55vw" }}
+                  sx={{ minWidth: '55vw' }}
                 >
-                  <Box padding={1} sx={{ minWidth: "8vw" }}>
+                  <Box padding={1} sx={{ minWidth: '8vw' }}>
                     문의 제목
                   </Box>
                   <Box sx={{ flexGrow: 1 }}>
@@ -156,19 +167,19 @@ export default function UserAskWrite() {
                       label="문의 제목을 입력해주세요"
                       fullWidth
                       value={askTitle}
-                      onChange={(e) => setAskTitle(e.target.value)}
+                      onChange={e => setAskTitle(e.target.value)}
                       inputProps={{ maxLength: 10 }}
                     />
                   </Box>
                 </Box>
                 <Box
-                  display={"flex"}
+                  display="flex"
                   borderBottom={1}
                   padding={1}
                   margin={1}
-                  sx={{ minWidth: "55vw" }}
+                  sx={{ minWidth: '55vw' }}
                 >
-                  <Box padding={1} sx={{ minWidth: "8vw" }}>
+                  <Box padding={1} sx={{ minWidth: '8vw' }}>
                     문의 내용
                   </Box>
                   <Box sx={{ flexGrow: 1 }}>
@@ -180,68 +191,68 @@ export default function UserAskWrite() {
                       maxRows={5}
                       variant="filled"
                       value={askContent}
-                      onChange={(e) => setAskContent(e.target.value)}
+                      onChange={e => setAskContent(e.target.value)}
                       inputProps={{ maxLength: 100 }}
                     />
                   </Box>
                 </Box>
                 <Box
-                  display={"flex"}
+                  display="flex"
                   borderBottom={1}
                   padding={1}
                   margin={1}
-                  sx={{ minWidth: "55vw" }}
+                  sx={{ minWidth: '55vw' }}
                 >
-                  <Box padding={1} sx={{ minWidth: "8vw" }}>
+                  <Box padding={1} sx={{ minWidth: '8vw' }}>
                     이름
                   </Box>
                   <Box
                     sx={{ flexGrow: 1 }}
-                    justifyContent={"center"}
-                    alignContent={"center"}
+                    justifyContent="center"
+                    alignContent="center"
                   >
                     {userName}
                   </Box>
                 </Box>
                 <Box
-                  display={"flex"}
+                  display="flex"
                   borderBottom={1}
                   padding={1}
                   margin={1}
-                  sx={{ minWidth: "55vw" }}
+                  sx={{ minWidth: '55vw' }}
                 >
-                  <Box padding={1} sx={{ minWidth: "8vw" }}>
+                  <Box padding={1} sx={{ minWidth: '8vw' }}>
                     이메일 주소
                   </Box>
-                  <Box sx={{ flexGrow: 1, maxWidth: "15vw" }}>
+                  <Box sx={{ flexGrow: 1, maxWidth: '15vw' }}>
                     <Box>
                       <TextField
                         fullWidth
                         type="email"
                         variant="standard"
                         value={userEmail}
-                        onChange={(e) => setUserEmail(e.target.value)}
+                        onChange={e => setUserEmail(e.target.value)}
                       />
                     </Box>
                   </Box>
                 </Box>
                 <Box
-                  display={"flex"}
+                  display="flex"
                   borderBottom={1}
                   padding={1}
                   margin={1}
-                  sx={{ minWidth: "55vw" }}
+                  sx={{ minWidth: '55vw' }}
                 >
-                  <Box padding={1} sx={{ minWidth: "8vw" }}>
+                  <Box padding={1} sx={{ minWidth: '8vw' }}>
                     휴대폰 번호
                   </Box>
-                  <Box sx={{ flexGrow: 1, maxWidth: "15vw" }}>
+                  <Box sx={{ flexGrow: 1, maxWidth: '15vw' }}>
                     <TextField
                       fullWidth
                       type="phone"
                       variant="standard"
                       value={userPhone}
-                      onChange={(e) => setUserPhone(e.target.value)}
+                      onChange={e => setUserPhone(e.target.value)}
                     />
                   </Box>
                 </Box>
@@ -250,12 +261,12 @@ export default function UserAskWrite() {
           </Box>
         </Card>
       </Box>
-      <Box display={"flex"} justifyContent={"center"}>
-        <CardActions sx={{ minWidth: "60vw" }} style={{ paddingTop: "2vw" }}>
-          <Link to={"/userAskList"}>
+      <Box display="flex" justifyContent="center">
+        <CardActions sx={{ minWidth: '60vw' }} style={{ paddingTop: '2vw' }}>
+          <Link to="/userAskList">
             <Button onClick={() => askWriteHandler()}>등록</Button>
           </Link>
-          <Link to={"userAskMain"}>
+          <Link to="userAskMain">
             <Button>취소</Button>
           </Link>
         </CardActions>

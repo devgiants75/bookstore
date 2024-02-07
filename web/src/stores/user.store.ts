@@ -1,16 +1,18 @@
-import {create} from 'zustand';
-interface UserStore{
-    user:any;
-    setUser:(user: any) => void;
-    remobeUser:()=>void;
+import { create } from 'zustand';
+
+interface UserStore {
+  user: any;
+  setUser: (user: any) => void;
+  removeUser: () => void;
 }
-const useStore = create<UserStore>((set)=>({
-    user: null,
-    setUser:(user:any)=>{
-        set((state)=>({...StaticRange,user}));
-    },
-    remobeUser:() =>{
-        set((state)=>({...state, user:null}));
-    }
+
+const useStore = create<UserStore>(set => ({
+  user: null,
+  setUser: (user: any) => {
+    set(state => ({ ...StaticRange, user }));
+  },
+  removeUser: () => {
+    set(state => ({ ...state, user: null }));
+  },
 }));
 export default useStore;

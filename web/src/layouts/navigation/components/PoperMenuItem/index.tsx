@@ -1,93 +1,33 @@
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import { AGE_LIST, CATEGORY_LIST } from "../../../../constants/navigation";
-import { useNavigate } from "react-router-dom";
-import { borderRadius } from "@mui/system";
+import { useNavigate } from 'react-router-dom';
+import { AGE_LIST, CATEGORY_LIST } from '../../../../constants/navigation';
+import * as S from './Index.Style';
 
 interface Props {
-    setAnchorEl: (parameter: null | HTMLElement) => void;
+  setAnchorEl: (parameter: null | HTMLElement) => void;
+  setMenuToggle: (parameter: boolean) => void;
 }
 
-export default function PoperMenuItem({ setAnchorEl }: Props) {
-    const navigator = useNavigate();
+export default function PoperMenuItem({ setAnchorEl, setMenuToggle }: Props) {
+  const navigator = useNavigate();
 
-    const menuItemHandler = (url: string) => {
-        setAnchorEl(null);
-        navigator(url);
-    };
+  const menuItemHandler = (url: string) => {
+    setAnchorEl(null);
+    navigator(url);
+    setMenuToggle(false);
+  };
 
-    return (
-        <Box
-            display='flex'
-            width={"80vw"}
-            sx={{ border: 2, borderColor: "#B3894F", p: 1, bgcolor: "background.paper", borderRadius:2, mt:1}}
-        >
-            {CATEGORY_LIST.map((category) => (
-                <>
-                    <Box sx={{ flexGrow: 1 }}>
-                        <Typography
-                            mb={2}
-                            fontWeight={600}
-                            textAlign='center'
-                            variant='subtitle1'
-                            component='div'
-                        >
-                            {category.title}
-                        </Typography>
-                        {category.subTitles.map((sub) => (
-                            <Typography
-                                pl={2}
-                                mb={1}
-                                mt={2}
-                                variant='subtitle2'
-                                component='div'
-                                onClick={() => menuItemHandler(category.url)}
-                            >
-                                {sub.subTitle}
-                            </Typography>
-                        ))}
-                    </Box>
-                    <Divider
-                        style={{ borderColor: "#B3894F" }}
-                        orientation='vertical'
-                        flexItem
-                    />
-                </>
-            ))}
-            {AGE_LIST.map((age) => (
-                <>
-                    <Box sx={{ flexGrow: 1 }}>
-                        <Typography
-                            mb={2}
-                            fontWeight={600}
-                            textAlign='center'
-                            variant='subtitle1'
-                            component='div'
-                        >
-                            {age.title}
-                        </Typography>
-                        {age.subTitles.map((age) => (
-                            <Typography
-                                pl={2}
-                                mb={1}
-                                variant='subtitle2'
-                                component='div'
-                                onClick={() => menuItemHandler(age.url)}
-                            >
-                                {age.subTitle}
-                            </Typography>
-                        ))}
-                    </Box>
-                    {age.title !== "4~7세" && (
-                        <Divider
-                            style={{ borderColor: "#B3894F" }}
-                            orientation='vertical'
-                            flexItem
-                        />
-                    )}
-                </>
-            ))}
-        </Box>
-    );
+  return (
+    <S.FullMenu>
+      {CATEGORY_LIST.map(category => (
+        <S.MenuContent>
+          <S.Depth01>{category.title}</S.Depth01>
+          {category.subTitles.map(sub => (
+            <S.Depth02 onClick={() => menuItemHandler(category.url)}>
+              {sub.subTitle}
+            </S.Depth02>
+          ))}
+        </S.MenuContent>
+      ))}
+    </S.FullMenu>
+  );
 }

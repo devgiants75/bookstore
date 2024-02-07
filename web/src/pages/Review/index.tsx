@@ -1,5 +1,5 @@
 import React from 'react';
-import './style.css'
+import './style.css';
 
 export default function Review() {
   return (
@@ -25,9 +25,11 @@ export default function Review() {
           <input type="hidden" name="PHOTO_ONLY" id="PHOTO_ONLY" value="" />
           <div className="review_tit">
             <p className="title">
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,react/jsx-no-script-url,no-script-url */}
               <a href="javascript:photo_only('N');">
                 전체(<em>0건</em>)
               </a>
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,react/jsx-no-script-url,no-script-url */}
               <a href="javascript:photo_only('Y');" className="photo">
                 포토(<em>0건</em>)
               </a>
@@ -47,9 +49,10 @@ export default function Review() {
         <div className="review">
           <ul>
             <li>
+              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
               <div
                 className="thumbanil"
-                style={{ cursor: "pointer" }}
+                style={{ cursor: 'pointer' }}
                 onClick={() => "product(0,'000000000005030863')"}
               >
                 <img src="" alt="" />
@@ -57,6 +60,7 @@ export default function Review() {
               <div className="review_cont">
                 <div className="point_wrap">
                   <p className="caption">
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                     <a href="">상품 이름</a>
                   </p>
                   <div className="writer">
@@ -72,40 +76,41 @@ export default function Review() {
                       <li className="total">
                         <span className="tit">총점</span>
                         <span className="star-rating">
-                          <span style={{ width: "100%" }}></span>
+                          <span style={{ width: '100%' }} />
                         </span>
                       </li>
                       <li>
                         <span className="tit">기능</span>
                         <span className="star-rating">
-                          <span style={{ width: "100%" }}></span>
+                          <span style={{ width: '100%' }} />
                         </span>
                       </li>
                       <li>
                         <span className="tit">디자인</span>
                         <span className="star-rating">
-                          <span style={{ width: "100%" }}></span>
+                          <span style={{ width: '100%' }} />
                         </span>
                       </li>
                       <li>
                         <span className="tit">가격</span>
                         <span className="star-rating">
-                          <span style={{ width: "100%" }}></span>
+                          <span style={{ width: '100%' }} />
                         </span>
                       </li>
                       <li>
                         <span className="tit">만족도</span>
                         <span className="star-rating">
-                          <span style={{ width: "100%" }}></span>
+                          <span style={{ width: '100%' }} />
                         </span>
                       </li>
                     </ul>
-                    <p className="txt"> </p>
+                    <p className="txt" />
                     <div className="review_text">
                       <br />
                       <p className="word">작성자가 적을 내용</p>
                       <br />
                       <br />
+                      {/* eslint-disable-next-line jsx-a11y/alt-text */}
                       <img
                         src=""
                         width="3024"
@@ -123,26 +128,33 @@ export default function Review() {
           </ul>
         </div>
         <div className="pagintion">
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a className="nav prev" href="">
             <i>
               <em>이전 페이지</em>
             </i>
           </a>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,react/jsx-no-script-url,no-script-url */}
           <a href="javascript:;" className="on">
             1
           </a>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,react/jsx-no-script-url,no-script-url */}
           <a className="num" href="javascript:goPage(2);">
             2
           </a>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,react/jsx-no-script-url,no-script-url */}
           <a className="num" href="javascript:goPage(3);">
             3
           </a>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,react/jsx-no-script-url,no-script-url */}
           <a className="num" href="javascript:goPage(4);">
             4
           </a>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,react/jsx-no-script-url,no-script-url */}
           <a className="num" href="javascript:goPage(5);">
             5
           </a>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,react/jsx-no-script-url,no-script-url */}
           <a className="nav next" href="javascript:goPage(6);">
             <i>
               <em>다음 페이지</em>

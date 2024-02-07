@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { Img1, Img2, Img3, Img4 } from "../../../assets/images";
-import { Box, Grid } from "@mui/material";
-import MainSideCarousel from "../MainSideCarousel";
-import MainCarousel from "../MainCarousel";
-import Ranking from "../Ranking";
+import { Box, Grid } from '@mui/material';
+import { Img1, Img2, Img3, Img4 } from '../../../assets/images';
+import MainSideCarousel from '../MainSideCarousel';
+import MainCarousel from '../MainCarousel';
+import Ranking from '../Ranking';
 
 export default function MainArticle() {
   // state : 상태 => 해당 컴포넌트가 리랜더링 되는 기준
@@ -51,25 +51,25 @@ export default function MainArticle() {
   //   alert('1useEffect');
   // }, [index]);
 
-  const change1 = () => {};
+  // const change1 = () => {};
 
-  const change2 = () => {};
+  // const change2 = () => {};
 
   return (
-      <Box mb={2} ml='10vw' mr='10vw'>
-        <Grid mt={2} container spacing={2}>
-          <Grid item xs={8}>
-            <MainSideCarousel />
-          </Grid>
-          <Grid item xs={4}>
-            <Ranking></Ranking>
-          </Grid>
+    <Box mb={2} ml="10vw" mr="10vw">
+      <Grid mt={2} container spacing={2}>
+        <Grid item xs={8}>
+          <MainSideCarousel />
         </Grid>
-        <Grid mt={2} container spacing={2}>
-          <Grid item xs={12}>
-            <MainCarousel />
-          </Grid>
+        <Grid item xs={4}>
+          <Ranking />
         </Grid>
-      </Box>
+      </Grid>
+      <Grid mt={2} container spacing={2}>
+        <Grid item xs={12}>
+          <MainCarousel />
+        </Grid>
+      </Grid>
+    </Box>
   );
 }

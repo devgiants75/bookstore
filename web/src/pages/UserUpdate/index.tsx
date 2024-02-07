@@ -1,12 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
-import {Card, CardContent,TextField , CardActions ,Button ,Box , Typography} from '@mui/material';
+import {
+  Card,
+  CardContent,
+  TextField,
+  CardActions,
+  Button,
+  Box,
+  Typography,
+} from '@mui/material';
 import axios from 'axios';
-import UserPageLeftSide from 'src/layouts/MyPage/MyPageLeftSide';
-import { useCookies } from "react-cookie"; 
+import { useCookies } from 'react-cookie';
+import UserPageLeftSide from '../../layouts/MyPage/MyPageLeftSide';
 
 export default function UserUpdate() {
-
   const [userId, setUserId] = useState<string>('');
   const [userPassword, setUserPassword] = useState<string>('');
   const [userPasswordCheck, setUserPasswordCheck] = useState<string>('');
@@ -20,7 +27,6 @@ export default function UserUpdate() {
   const [cookies, setCookies] = useCookies();
 
   const onUpdateHandler = async () => {
-
     const body = {
       userId,
       userPassword,
@@ -30,15 +36,16 @@ export default function UserUpdate() {
       userPhone,
       userAddress,
       userAddressDetail,
-      userKidBirth
-    }
+      userKidBirth,
+    };
 
     axios
-      .post("http://localhost:4080/api/user/userUpdate", body, {
-        headers: { Authorization: `Bearer ${cookies.token}`}})
-      .then((response) => {
-        const data = response.data;
-        const result = data.result;
+      .post('http://localhost:4080/api/user/userUpdate', body, {
+        headers: { Authorization: `Bearer ${cookies.token}` },
+      })
+      .then(response => {
+        const { data } = response;
+        const { result } = data;
         console.log(result);
         if (!result) alert(data.message);
         else {
@@ -53,44 +60,41 @@ export default function UserUpdate() {
           setUserKidBirth(data.data.userKidBirth);
         }
       })
-      .catch((error) => {
-        console.log(error)
+      .catch(error => {
+        console.log(error);
         alert(error.message);
       });
-  }
+  };
 
   useEffect(() => {
-    axios.get(`http://localhost:4080/api/user/`, {
-      headers: {
-        Authorization: `Bearer ${cookies.token}`,
-      },
-    })
-    .then((response) => {
-      const data = response.data;
-      const result = data.result;
-      console.log(result);
-      if (!result) alert(data.message)
-      else {
-        setUserId(data.data.userId);
-        setUserName(data.data.userName);
-        setUserEmail(data.data.userEmail);
-        setUserPhone(data.data.userPhone);
-        setUserAddress(data.data.userAddress);
-        setUserAddressDetail(data.data.userAddressDetail);
-        setUserKidBirth(data.data.userKidBirth);
-      }
-    })
+    axios
+      .get(`http://localhost:4080/api/user/`, {
+        headers: {
+          Authorization: `Bearer ${cookies.token}`,
+        },
+      })
+      .then(response => {
+        const { data } = response;
+        const { result } = data;
+        console.log(result);
+        if (!result) alert(data.message);
+        else {
+          setUserId(data.data.userId);
+          setUserName(data.data.userName);
+          setUserEmail(data.data.userEmail);
+          setUserPhone(data.data.userPhone);
+          setUserAddress(data.data.userAddress);
+          setUserAddressDetail(data.data.userAddressDetail);
+          setUserKidBirth(data.data.userKidBirth);
+        }
+      });
   }, []);
 
   return (
-    <Box display={"flex"}>
+    <Box display="flex">
       <UserPageLeftSide />
-      <Box
-        display={"flex"}
-        justifyContent={"center"}
-        style={{ paddingTop: "5vw" }}
-      >
-        <Card sx={{ minWidth: 275, maxWidth: "40vw" }}>
+      <Box display="flex" justifyContent="center" style={{ paddingTop: '5vw' }}>
+        <Card sx={{ minWidth: 275, maxWidth: '40vw' }}>
           <CardContent>
             <Typography fontWeight={800} ml={1} mb={2}>
               회원 정보 수정
@@ -107,7 +111,7 @@ export default function UserUpdate() {
               label="이름"
               type="name"
               value={userName}
-              onChange={(e) => setUserName(e.target.value)}
+              onChange={e => setUserName(e.target.value)}
               variant="standard"
             />
             <TextField
@@ -115,7 +119,7 @@ export default function UserUpdate() {
               label="전화번호"
               type="phone"
               value={userPhone}
-              onChange={(e) => setUserPhone(e.target.value)}
+              onChange={e => setUserPhone(e.target.value)}
               variant="standard"
             />
             <TextField
@@ -130,7 +134,7 @@ export default function UserUpdate() {
               label="주소"
               type="address"
               value={userAddress}
-              onChange={(e) => setUserAddress(e.target.value)}
+              onChange={e => setUserAddress(e.target.value)}
               variant="standard"
             />
             <TextField
@@ -138,7 +142,7 @@ export default function UserUpdate() {
               label="상세주소"
               type="address"
               value={userAddressDetail}
-              onChange={(e) => setUserAddressDetail(e.target.value)}
+              onChange={e => setUserAddressDetail(e.target.value)}
               variant="standard"
             />
             <TextField
@@ -146,7 +150,7 @@ export default function UserUpdate() {
               label="자녀 생년월일"
               type="kidBirth"
               value={userKidBirth}
-              onChange={(e) => setUserKidBirth(e.target.value)}
+              onChange={e => setUserKidBirth(e.target.value)}
               variant="standard"
             />
           </CardContent>
