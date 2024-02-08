@@ -1,214 +1,172 @@
-import React, { useState } from 'react';
-
-import {
-  Card,
-  CardContent,
-  TextField,
-  CardActions,
-  Button,
-  Box,
-  Typography,
-} from '@mui/material';
+import React, { useEffect, useState } from 'react';
 
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import Input from '../../components/Input/Input';
+import * as S from './Index.Style';
 
 interface User {
   userId: string;
   userPassword: string;
 }
 
+interface FormData {
+  userId: string;
+  userPassword: string;
+  userEmail: string;
+  userName: string;
+}
+
 export default function SignUp() {
-  const [user, setUser] = useState<User>({
-    userId: '',
-    userPassword: '',
-  });
-
-  const [userId, setUserId] = useState<string>('');
-  const [userPassword, setUserPassword] = useState<string>('');
-  const [userPasswordCheck, setUserPasswordCheck] = useState<string>('');
-  const [userName, setUserName] = useState<string>('');
-  const [userPhone, setUserPhone] = useState<string>('');
-  const [userEmail, setUserEmail] = useState<string>('');
-  const [userAddress, setUserAddress] = useState<string>('');
-  const [userAddressDetail, setUserAddressDetail] = useState<string>('');
-  const [userKidBirth, setUserKidBirth] = useState<string>('');
-  const [recommendedUserId, setRecommendedUserId] = useState<string>('');
-
-  const [idError, setIdError] = useState<boolean>(true);
-  const [pwError, setPwError] = useState<boolean>(true);
-  const [pwckError, setPwckError] = useState<boolean>(true);
-  const [emailError, setEmailError] = useState<boolean>(true);
-
-  const idRegExp = /^[a-zA-Z0-9]{4,8}$/;
-  const pwRegExp = /^[a-zA-Z0-9!@]{8,12}$/;
+  const idRegExp = /^[a-zA-Z0-9_]{4,8}$/;
+  const passwordRegExp =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,12}$/;
   const emailRegExp = /^([a-z0-9_.-]+)@([\da-z.-]+)\.([a-z.]{2,6})$/;
 
-  const onIdHandler = (value: string) => {
-    setUserId(value);
-    setIdError(value === '' || !idRegExp.test(value));
-  };
+  const [formData, setFormData] = useState<FormData>({
+    userId: '',
+    userPassword: '',
+    userEmail: '',
+    userName: '',
+  });
+  const [errors, setErrors] = useState<Record<keyof FormData, string>>({
+    userId: '',
+    userPassword: '',
+    userEmail: '',
+    userName: '',
+  });
 
-  const onPwHandler = (value: string) => {
-    setUserPassword(value);
-    setPwError(!pwRegExp.test(value));
-  };
+  const handleInputChange =
+    (name: keyof FormData) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setFormData({
+        ...formData,
+        [name]: event.target.value,
+      });
 
-  const onPwChackHandler = (value: string) => {
-    setUserPasswordCheck(value);
-    setPwckError(userPassword !== value);
-  };
+      // Clear error message when user starts typing
+      setErrors({
+        ...errors,
+        [name]: '',
+      });
+    };
 
-  const onEmailHandler = (value: string) => {
-    setUserEmail(value);
-    setEmailError(value === '' || !emailRegExp.test(value));
-  };
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const signUpHandler = () => {
-    if (
-      idError ||
-      pwError ||
-      pwckError ||
-      emailError ||
-      userName === '' ||
-      userPhone === '' ||
-      userAddress === ''
-    ) {
-      alert('모든 조건을 만족시켜주세요.');
+    const newErrors = {
+      userId: '',
+      userPassword: '',
+      userEmail: '',
+      userName: '',
+    };
+
+    if (!formData.userId) {
+      newErrors.userId = '아이디를 입력해주세요.';
+    } else if (!idRegExp.test(formData.userId)) {
+      newErrors.userId = "4~8자의 영문, 숫자와 특수문자 '_'만 사용해주세요.";
+    }
+
+    if (!formData.userPassword) {
+      newErrors.userPassword = '비밀번호를 입력하세요.';
+    } else if (!passwordRegExp.test(formData.userPassword)) {
+      newErrors.userPassword =
+        '8~16자리 영문 대소문자, 숫자, 특수문자 중 3가지 이상 조합으로 만들어주세요.';
+    }
+
+    if (!formData.userName) {
+      newErrors.userName = '이름을 입력하세요.';
+    }
+
+    if (!formData.userEmail) {
+      newErrors.userEmail = '이메일을 입력하세요.';
+    } else if (!emailRegExp.test(formData.userEmail)) {
+      newErrors.userEmail =
+        '잘못된 이메일 주소입니다. 이메일 주소를 정확하게 입력해주세요.';
+    }
+
+    // 에러
+    if (Object.values(newErrors).some(error => !!error)) {
+      setErrors(newErrors);
+      console.log(newErrors);
       return;
     }
 
+    // 회원가입 성공
     axios
-      .post('http://localhost:4080/api/auth/signUp', user)
+      .post('http://localhost:4080/api/auth/signUp', formData)
       .then(response => {
         alert('회원가입 완료! 환영합니다.');
       })
       .catch(error => {
         console.log(error);
       });
+    console.log('Form submitted:', formData);
   };
 
   return (
     <>
-      <Typography
-        variant="h3"
-        paddingTop="2vw"
-        textAlign="center"
-        fontFamily="logoFont"
-      >
-        회원가입
-      </Typography>
-      <Box display="flex" justifyContent="center" style={{ paddingTop: '3vw' }}>
-        <Card
-          variant="outlined"
-          sx={{ width: '30vw', height: '41vw' }}
-          style={{ marginBottom: '5vw' }}
-        >
-          <CardContent>
-            <TextField
-              fullWidth
-              label="아이디"
-              type="id"
-              variant="standard"
-              error={idError}
-              helperText={
-                idError ? '영대소문자 및 숫자로 4~8자리 입력하세요' : false
-              }
-              onChange={e => onIdHandler(e.target.value)}
-            />
-            <TextField
-              fullWidth
-              label="비밀번호"
-              type="password"
-              variant="standard"
-              error={pwError}
-              helperText={
-                pwError
-                  ? '영대소문자 및 숫자, 특수문자(! @)로 8~12자리 입력하세요'
-                  : false
-              }
-              onChange={e => onPwHandler(e.target.value)}
-            />
-            <TextField
-              fullWidth
-              label="비밀번호 체크"
-              type="password"
-              variant="standard"
-              error={pwckError}
-              helperText={pwckError ? '비밀번호가 일치하지 않습니다.' : false}
-              onChange={e => onPwChackHandler(e.target.value)}
-            />
-            <TextField
-              fullWidth
-              label="이름"
-              type="name"
-              variant="standard"
-              error={userName === ''}
-              helperText={userName === '' ? '이름을 입력하세요' : false}
-              onChange={e => setUserName(e.target.value)}
-            />
-            <TextField
-              fullWidth
-              label="전화번호"
-              type="phone"
-              variant="standard"
-              error={userPhone === ''}
-              helperText={userPhone === '' ? '전화번호를 입력하세요' : false}
-              onChange={e => setUserPhone(e.target.value)}
-            />
-            <TextField
-              fullWidth
-              label="이메일"
-              type="email"
-              variant="standard"
-              error={emailError}
-              helperText={
-                emailError ? '이메일을 형식에 맞게 작성하여 주십시오.' : false
-              }
-              onChange={e => onEmailHandler(e.target.value)}
-            />
-            <TextField
-              fullWidth
-              label="주소"
-              type="address"
-              variant="standard"
-              error={userAddress === ''}
-              helperText={userAddress === '' ? '주소를 입력하세요' : false}
-              onChange={e => setUserAddress(e.target.value)}
-            />
-            <TextField
-              fullWidth
-              label="상세주소"
-              type="address"
-              variant="standard"
-              onChange={e => setUserAddressDetail(e.target.value)}
-            />
-            <TextField
-              fullWidth
-              label="자녀 생년월일"
-              type="kidBirth"
-              variant="standard"
-              onChange={e => setUserKidBirth(e.target.value)}
-            />
-            <TextField
-              fullWidth
-              label="추천인 아이디"
-              type="recommendedUserId"
-              variant="standard"
-              onChange={e => setRecommendedUserId(e.target.value)}
-            />
-          </CardContent>
-          <CardActions>
-            <Button
-              fullWidth
-              onClick={() => signUpHandler()}
-              variant="contained"
-              sx={{ bgcolor: '#F0A500' }}
-            >
-              회원가입
-            </Button>
-          </CardActions>
-        </Card>
-      </Box>
+      <S.Container>
+        <S.ContainerInner>
+          <S.Title>회원가입</S.Title>
+          <Input
+            label="아이디"
+            type="id"
+            name="userId"
+            placeholder="4~8자리 / 영문, 숫자, 특수문자'_' 사용가능"
+            error={!!errors.userId}
+            helperText={errors.userId}
+            onChange={handleInputChange('userId')}
+          />
+          <Input
+            label="비밀번호"
+            type="password"
+            name="userPassword"
+            placeholder="8~12자리 / 영문 대소문자, 숫자, 특수문자 조합"
+            error={!!errors.userPassword}
+            helperText={errors.userPassword}
+            onChange={handleInputChange('userPassword')}
+          />
+          <Input
+            label="이름"
+            type="name"
+            name="userName"
+            placeholder="이름 입력"
+            error={!!errors.userName}
+            helperText={errors.userName}
+            onChange={handleInputChange('userName')}
+          />
+          <Input
+            label="이메일"
+            type="email"
+            name="userEmail"
+            placeholder="email@example.com"
+            error={!!errors.userEmail}
+            helperText={errors.userEmail}
+            onChange={handleInputChange('userEmail')}
+          />
+          {/* <Input */}
+          {/*  label="주소" */}
+          {/*  type="address" */}
+          {/*  error={userAddress === ''} */}
+          {/*  helperText={userAddress === '' ? '주소를 입력하세요.' : false} */}
+          {/*  onChange={handleInputChange('userAddress')} */}
+          {/* /> */}
+          {/* <Input label="상세주소" type="address" onChange={handleInputChange} /> */}
+          {/* <Input */}
+          {/*  label="자녀 생년월일" */}
+          {/*  type="kidBirth" */}
+          {/*  onChange={handleInputChange('userBirth')} */}
+          {/* /> */}
+          <S.Button type="submit" onClick={handleSubmit}>
+            회원가입
+          </S.Button>
+          <S.SignIn>
+            <span>이미 회원이신가요?</span>
+            <Link to="/signin">로그인</Link>
+          </S.SignIn>
+        </S.ContainerInner>
+      </S.Container>
+      {/* -------------- */}
     </>
   );
 }

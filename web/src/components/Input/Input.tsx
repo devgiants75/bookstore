@@ -1,49 +1,42 @@
 import React from 'react';
-import { TextField } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { StyledInput } from './Index.Style';
 
 interface IProp {
   label: string;
   type: string;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  name?: string;
+  value?: string;
+  placeholder?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: boolean;
+  helperText?: string | boolean;
+  required?: boolean;
 }
 
-const StyledInput = styled(TextField)`
-  & label {
-    position: static;
-    font-size: 14rem;
-  }
-
-  & label[data-shrink='true'] {
-    color: var(--gray100);
-  }
-
-  & label + input {
-    margin-top: 4rem;
-  }
-
-  & input {
-    border: 1px solid var(--gray50);
-    height: 48rem;
-    font-size: 16rem;
-    padding: 8rem 12rem;
-    border-radius: 6rem;
-    margin: 4rem 0 0;
-  }
-
-  & input:focus {
-    border-color: var(--gray80);
-  }
-`;
-
-function Input({ label, type, onChange }: IProp) {
+function Input({
+  label,
+  type,
+  name,
+  value,
+  placeholder,
+  onChange,
+  error,
+  helperText,
+  required,
+}: IProp) {
   return (
     <StyledInput
       label={label}
       type={type}
+      name={name}
+      value={value}
+      placeholder={placeholder}
       variant="standard"
       onChange={onChange}
       InputLabelProps={{ shrink: true }}
+      error={error}
+      helperText={helperText}
+      required={required}
     />
   );
 }

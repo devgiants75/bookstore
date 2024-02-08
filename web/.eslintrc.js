@@ -73,13 +73,15 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'global-require': 0,
     // input label 연결 에러
-    "jsx-a11y/label-has-associated-control": [
+    'jsx-a11y/label-has-associated-control': [
       2,
       {
-        "labelAttributes": ["htmlFor"]
-      }
+        labelAttributes: ['htmlFor'],
+      },
     ],
     'import/prefer-default-export': 0,
+    // default props 경고
+    'react/require-default-props': 'warn', // or "warn"
     // 추후 삭제
     'jsx-a11y/anchor-is-valid': 0,
   },

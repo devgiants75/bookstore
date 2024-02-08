@@ -50,11 +50,13 @@ export default function SingIn() {
         <S.Title>로그인</S.Title>
         <Input
           label="아이디"
-          type="email"
+          name="userId"
+          type="text"
           onChange={e => setUserId(e.target.value)}
         />
         <Input
           label="비밀번호"
+          name="userPassword"
           type="password"
           onChange={e => setUserPassword(e.target.value)}
         />
