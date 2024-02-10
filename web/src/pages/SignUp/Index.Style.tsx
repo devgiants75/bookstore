@@ -1,7 +1,6 @@
 import { styled } from 'styled-components';
-import { container, logo } from '../../styles/variable';
 
-export const Container = styled.div`
+export const Container = styled.form`
   max-width: 420rem;
   margin: 120rem auto;
 
@@ -49,31 +48,7 @@ export const Button = styled.button`
   }
 `;
 
-export const Forgotten = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8rem;
-  justify-content: center;
-
-  & a {
-    font-size: 13rem;
-    color: var(--gray110);
-
-    &:not(:first-child):before {
-      content: '';
-    }
-  }
-
-  & hr {
-    display: block;
-    width: 1px;
-    height: 12px;
-    border: 0;
-    background: #d7dce5;
-  }
-`;
-
-export const SignUp = styled.div`
+export const SignIn = styled.div`
   text-align: center;
 
   & span {

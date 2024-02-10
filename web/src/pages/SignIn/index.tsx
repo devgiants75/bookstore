@@ -5,17 +5,19 @@ import { Link } from 'react-router-dom';
 import * as S from './Index.Style';
 
 import { useUserStore } from '../../stores';
-import Input from '../../components/Input/Input';
+import Index from '../../components/Input';
+import AuthResult from '../../components/AuthResult';
 
 export default function SingIn() {
   const [userId, setUserId] = useState<string>('');
   const [userPassword, setUserPassword] = useState<string>('');
   const [cookies, setCookies] = useCookies();
   const { user, setUser } = useUserStore();
+  const [isLogin, setIsLogin] = useState<boolean>(true);
 
-  const signInHandeler = () => {
+  const signInHandler = () => {
     if (userId.length === 0 || userPassword.length === 0) {
-      alert('아이디와 비밀번호를 입력하세요.');
+      setIsLogin(false);
       return;
     }
     const data = {
@@ -27,20 +29,20 @@ export default function SingIn() {
       .post('http://localhost:4080/api/auth/signIn', data)
       .then(response => {
         const responseData = response.data;
-        console.log(responseData);
         if (!responseData.result) {
-          alert('로그인에 실패했습니다');
+          setIsLogin(false);
           return;
         }
         const { token, exprTime, user } = responseData.data;
         const expires = new Date();
         expires.setMilliseconds(expires.getMilliseconds() + exprTime);
+        setIsLogin(true);
 
         setCookies('token', token, { expires });
         setUser(user);
       })
       .catch(error => {
-        alert('로그인에 실패했습니다');
+        setIsLogin(false);
       });
   };
 
@@ -48,17 +50,19 @@ export default function SingIn() {
     <S.Container>
       <S.ContainerInner>
         <S.Title>로그인</S.Title>
-        <Input
+        <Index
           label="아이디"
-          type="email"
+          name="userId"
+          type="text"
           onChange={e => setUserId(e.target.value)}
         />
-        <Input
+        <Index
           label="비밀번호"
+          name="userPassword"
           type="password"
           onChange={e => setUserPassword(e.target.value)}
         />
-        <S.Button onClick={() => signInHandeler()}>로그인</S.Button>
+        <S.Button onClick={() => signInHandler()}>로그인</S.Button>
         <S.Forgotten>
           <Link to="/findId">아이디 찾기</Link>
           <hr />
@@ -68,6 +72,14 @@ export default function SingIn() {
           <span>아직 회원이 아니신가요?</span>
           <Link to="/signup">회원가입</Link>
         </S.SignUp>
+        {isLogin ? (
+          ''
+        ) : (
+          <AuthResult
+            title="로그인 실패"
+            desc="아이디 또는 비밀번호가 틀렸습니다."
+          />
+        )}
       </S.ContainerInner>
     </S.Container>
   );
