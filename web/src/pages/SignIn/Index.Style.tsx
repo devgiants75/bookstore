@@ -75,7 +75,6 @@ export const Forgotten = styled.div`
 
 export const SignUp = styled.div`
   text-align: center;
-  margin-top: 40rem;
 
   & span {
     color: var(--gray110);

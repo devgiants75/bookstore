@@ -21,7 +21,7 @@ export const StyledInput = styled(TextField)`
     height: 48rem;
     font-size: 16rem;
     padding: 8rem 12rem;
-    border-radius: 6rem;
+    border-radius: 8rem;
     margin: 4rem 0 0;
   }
 

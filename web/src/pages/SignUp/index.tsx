@@ -2,13 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Input from '../../components/Input/Input';
+import Index from '../../components/Input';
 import * as S from './Index.Style';
-
-interface User {
-  userId: string;
-  userPassword: string;
-}
 
 interface FormData {
   userId: string;
@@ -18,7 +13,7 @@ interface FormData {
 }
 
 export default function SignUp() {
-  const idRegExp = /^[a-zA-Z0-9_]{4,8}$/;
+  const idRegExp = /^[a-zA-Z0-9_]{4,15}$/;
   const passwordRegExp =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,12}$/;
   const emailRegExp = /^([a-z0-9_.-]+)@([\da-z.-]+)\.([a-z.]{2,6})$/;
@@ -43,7 +38,6 @@ export default function SignUp() {
         [name]: event.target.value,
       });
 
-      // Clear error message when user starts typing
       setErrors({
         ...errors,
         [name]: '',
@@ -63,7 +57,7 @@ export default function SignUp() {
     if (!formData.userId) {
       newErrors.userId = '아이디를 입력해주세요.';
     } else if (!idRegExp.test(formData.userId)) {
-      newErrors.userId = "4~8자의 영문, 숫자와 특수문자 '_'만 사용해주세요.";
+      newErrors.userId = "4~15자의 영문, 숫자와 특수문자 '_'만 사용해주세요.";
     }
 
     if (!formData.userPassword) {
@@ -108,7 +102,7 @@ export default function SignUp() {
       <S.Container>
         <S.ContainerInner>
           <S.Title>회원가입</S.Title>
-          <Input
+          <Index
             label="아이디"
             type="id"
             name="userId"
@@ -117,7 +111,7 @@ export default function SignUp() {
             helperText={errors.userId}
             onChange={handleInputChange('userId')}
           />
-          <Input
+          <Index
             label="비밀번호"
             type="password"
             name="userPassword"
@@ -126,7 +120,7 @@ export default function SignUp() {
             helperText={errors.userPassword}
             onChange={handleInputChange('userPassword')}
           />
-          <Input
+          <Index
             label="이름"
             type="name"
             name="userName"
@@ -135,7 +129,7 @@ export default function SignUp() {
             helperText={errors.userName}
             onChange={handleInputChange('userName')}
           />
-          <Input
+          <Index
             label="이메일"
             type="email"
             name="userEmail"

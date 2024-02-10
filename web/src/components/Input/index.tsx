@@ -13,7 +13,7 @@ interface IProp {
   required?: boolean;
 }
 
-function Input({
+function Index({
   label,
   type,
   name,
@@ -41,4 +41,4 @@ function Input({
   );
 }
 
-export default Input;
+export default Index;

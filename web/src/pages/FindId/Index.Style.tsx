@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
+import { container, logo } from '../../styles/variable';
 
-export const Container = styled.form`
+export const Container = styled.div`
   max-width: 420rem;
   margin: 120rem auto;
 
@@ -48,7 +49,31 @@ export const Button = styled.button`
   }
 `;
 
-export const SignIn = styled.div`
+export const Forgotten = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8rem;
+  justify-content: center;
+
+  & a {
+    font-size: 13rem;
+    color: var(--gray110);
+
+    &:not(:first-child):before {
+      content: '';
+    }
+  }
+
+  & hr {
+    display: block;
+    width: 1px;
+    height: 12px;
+    border: 0;
+    background: #d7dce5;
+  }
+`;
+
+export const SignUp = styled.div`
   text-align: center;
 
   & span {
@@ -61,5 +86,29 @@ export const SignIn = styled.div`
     font-size: 14rem;
     text-decoration: underline;
     color: var(--blue80);
+  }
+`;
+
+export const Result = styled.div`
+  background-color: var(--blue20);
+  border-radius: 8rem;
+  padding: 16rem;
+  color: var(--coral110);
+  font-size: 14rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 10rem;
+  border: 1px solid var(--coral110);
+
+  & svg {
+    width: 20rem;
+  }
+
+  & h3 {
+    font-weight: 700;
+  }
+
+  & p {
+    margin-top: 8rem;
   }
 `;
